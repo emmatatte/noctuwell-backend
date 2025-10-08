@@ -1,36 +1,38 @@
 package pe.edu.upc.noctuwellbackend.controllers;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.noctuwellbackend.dtos.AuthorityDTO;
 import pe.edu.upc.noctuwellbackend.entities.Authority;
-import pe.edu.upc.noctuwellbackend.servicesinterfaces.IAuthorityService;
+import pe.edu.upc.noctuwellbackend.servicesinterfaces.AuthorityService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/authorities")
 public class AuthorityController {
     @Autowired
-    private IAuthorityService aS;
+    private AuthorityService authorityService;
 
-    public AuthorityController() {
+    @PostMapping
+    public ResponseEntity<Authority> addAuthority(@RequestBody Authority authority) {
+        Authority newAuthority = authorityService.addAuthority(authority);
+        return ResponseEntity.ok(newAuthority);
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<Authority> findByName(@PathVariable("name") String name) {
+        Authority authority = authorityService.findByName(name);
+        if (authority == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(authority);
     }
 
     @GetMapping
-    public List<AuthorityDTO> listar() {
-        return aS.list().stream().map(x->{
-            ModelMapper m = new ModelMapper();
-            return m.map(x, AuthorityDTO.class);
-        }).collect(Collectors.toList());
-    }
-
-    @PostMapping("/registrar")
-    public void registrar(@RequestBody AuthorityDTO aDTO) {
-        ModelMapper m = new ModelMapper();
-        Authority a = m.map(aDTO, Authority.class);
-        aS.insert(a);
+    public ResponseEntity<List<Authority>> getAllAuthorities() {
+        List<Authority> authorities = authorityService.getAllAuthorities();
+        return ResponseEntity.ok(authorities);
     }
 }
