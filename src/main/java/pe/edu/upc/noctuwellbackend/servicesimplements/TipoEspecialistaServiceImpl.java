@@ -17,11 +17,19 @@ public class TipoEspecialistaServiceImpl implements TipoEspecialistaService {
     private TipoEspecialistaRepository tipoEspecialistaRepository;
 
     private TipoEspecialistaDTO convertToDTO(TipoEspecialista entity) {
-        return new TipoEspecialistaDTO(entity.getId(), entity.getNombre(), entity.getDescripcion());
+        TipoEspecialistaDTO dto = new TipoEspecialistaDTO();
+        dto.setId(entity.getId());
+        dto.setNombre(entity.getNombre());
+        dto.setDescripcion(entity.getDescripcion());
+        return dto;
     }
 
     private TipoEspecialista convertToEntity(TipoEspecialistaDTO dto) {
-        return new TipoEspecialista(dto.getId(), dto.getNombre(), dto.getDescripcion());
+        TipoEspecialista te = new TipoEspecialista();
+        te.setId(dto.getId());
+        te.setNombre(dto.getNombre());
+        te.setDescripcion(dto.getDescripcion());
+        return te;
     }
 
     @Override

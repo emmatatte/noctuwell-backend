@@ -39,15 +39,25 @@ public class User {
     )
     private List<Authority> authorities;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Especialistas> especialistas;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Pacientes> pacientes;
+
     public User() {
     }
 
-    public User(Long id,  String username, String password ,boolean enabled,  List<Authority> authorities) {
+    public User(Long id,  String username, String password ,boolean enabled,  List<Authority> authorities, List<Especialistas> especialistas, List<Pacientes> pacientes) {
         this.id = id;
         this.authorities = authorities;
         this.enabled = enabled;
         this.password = password;
         this.username = username;
+        this.especialistas = especialistas;
+        this.pacientes = pacientes;
     }
 
 
@@ -89,6 +99,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Especialistas> getEspecialistas() {
+        return especialistas;
+    }
+
+    public void setEspecialistas(List<Especialistas> especialistas) {
+        this.especialistas = especialistas;
+    }
+
+    public List<Pacientes> getPacientes() {
+        return pacientes;
+    }
+
+    public void setPacientes(List<Pacientes> pacientes) {
+        this.pacientes = pacientes;
     }
 
     @Override

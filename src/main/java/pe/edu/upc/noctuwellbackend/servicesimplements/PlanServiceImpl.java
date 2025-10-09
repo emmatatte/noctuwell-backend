@@ -6,7 +6,6 @@ import pe.edu.upc.noctuwellbackend.dtos.PlanDTO;
 import pe.edu.upc.noctuwellbackend.entities.Plan;
 import pe.edu.upc.noctuwellbackend.repositories.PlanRepository;
 import pe.edu.upc.noctuwellbackend.servicesinterfaces.PlanService;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

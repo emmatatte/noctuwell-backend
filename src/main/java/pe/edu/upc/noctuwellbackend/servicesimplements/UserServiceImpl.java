@@ -75,14 +75,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(DTOUser dtoUser) {
-        User newUser = new User(
-                null, dtoUser.getUsername(), dtoUser.getPassword(), true, null
-        );
+        User newUser = new User();
+        newUser.setUsername(dtoUser.getUsername());
+        newUser.setPassword(dtoUser.getPassword());
+        newUser.setEnabled(true);
         List<Authority> authorityList = authoritiesFromString(dtoUser.getAuthorities());
         newUser.setAuthorities(authorityList);
-
         return addUser(newUser);
     }
+
 
     @Override
     public User addUser(User user) {
