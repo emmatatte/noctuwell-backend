@@ -23,7 +23,7 @@ public class Appointment {
     private LocalDate date;
     private LocalTime time;
     private String reason;
-    private String status; // e.g. SCHEDULED, COMPLETED, CANCELLED
+    private String status; //Puede ser agendado, cancelado, programado o otros
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
